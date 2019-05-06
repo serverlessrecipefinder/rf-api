@@ -38,8 +38,11 @@ functions:
         path: recipes/upload
         method: get
         cors: true
+        authorizer:
+            arn: ${self:custom.cognitoUserPoolArn}
     environment:
         UPLOAD_BUCKET: recipefinder-uploads
+    
 
 resources:
   Resources:
@@ -59,3 +62,6 @@ resources:
             - "*"
             AllowedHeaders:
             - "*"
+
+custom:
+  cognitoUserPoolArn: ${ssm:/rf/globals/cognito_user_pool_arn}
