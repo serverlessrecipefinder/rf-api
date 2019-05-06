@@ -1,14 +1,25 @@
-'use strict';
+'use strict'
 
-module.exports.hello = async (event) => {
+var AWS = require('aws-sdk')
+
+module.exports.upload = async (event) => {
+  var s3 = new AWS.S3()
+  var params = event.queryStringParameters
+
+  var s3Params = {
+    Bucket: process.env.UPLOAD_BUCKET,
+    Key:  params.name,
+    ContentType: params.type,
+    ACL: 'public-read',
+  }
+
+  const uploadURL = s3.getSignedUrl('putObject', s3Params)
+
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }, null, 2),
-  };
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({ uploadURL }),
+  }
+}

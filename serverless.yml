@@ -17,6 +17,11 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: eu-west-2
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "arn:aws:s3:::recipefinder-uploads/*"
 
 package:
   include:
@@ -25,5 +30,31 @@ package:
    - ./**
 
 functions:
-  hello:
-    handler: src/handler.hello
+  upload:
+    handler: src/handler.upload
+    events:
+    - http:
+        path: recipes/upload
+        method: get
+        cors: true
+    environment:
+        UPLOAD_BUCKET: recipefinder-uploads
+
+resources:
+  Resources:
+    UploadBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: recipefinder-uploads
+        AccessControl: PublicRead
+        CorsConfiguration:
+          CorsRules:
+          - AllowedMethods:
+            - GET
+            - PUT
+            - POST
+            - HEAD
+            AllowedOrigins:
+            - "*"
+            AllowedHeaders:
+            - "*"

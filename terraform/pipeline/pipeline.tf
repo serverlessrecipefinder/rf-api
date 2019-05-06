@@ -1,5 +1,5 @@
 resource "aws_codepipeline" "pipeline" {
-  name     = "${var.prefix}codepipeline-${var.name}"
+  name     = "${var.prefix}codepipeline"
   role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
   artifact_store {
