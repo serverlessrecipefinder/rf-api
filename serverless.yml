@@ -17,6 +17,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: eu-west-2
+  stage: ${opt:stage, 'dev'}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -45,7 +46,7 @@ resources:
     UploadBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: recipefinder-uploads
+        BucketName: recipefinder-uploads-${self:provider.stage}
         AccessControl: PublicRead
         CorsConfiguration:
           CorsRules:
