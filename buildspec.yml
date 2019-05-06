@@ -1,0 +1,10 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      # Install serverless framework
+      - npm install -g serverless
+  build:
+    commands:
+      # Apply to correct stage.
+      - serverless deploy --verbose --stage ${RF_ENVIRONMENT} --region ${RF_REGION}
