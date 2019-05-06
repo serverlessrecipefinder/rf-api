@@ -1,0 +1,27 @@
+{
+  "name": "rf-ui-api",
+  "version": "1.0.0",
+  "description": "Front-end API for the RecipeFinder project.",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.449.0",
+    "serverless": "^1.41.1",
+    "serverless-domain-manager": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "create_domain": "serverless create_domain",
+    "deploy": "serverless deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serverlessrecipefinder/rf-ui-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/serverlessrecipefinder/rf-ui-api/issues"
+  },
+  "homepage": "https://github.com/serverlessrecipefinder/rf-ui-api#readme"
+}

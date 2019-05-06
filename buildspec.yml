@@ -2,9 +2,9 @@ version: 0.2
 phases:
   install:
     commands:
-      # Install serverless framework
-      - npm install -g serverless
+      - npm install
+      - npm install -g serverless # TODO: Use the dependency in node_modules..
   build:
     commands:
-      # Apply to correct stage.
-      - serverless deploy --verbose --stage ${RF_ENVIRONMENT} --region ${RF_REGION}
+      - npm run create_domain -- --stage ${RF_ENVIRONMENT}
+      - npm run deploy -- --verbose --stage ${RF_ENVIRONMENT} --region ${RF_REGION}

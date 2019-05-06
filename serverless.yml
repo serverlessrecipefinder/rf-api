@@ -63,5 +63,17 @@ resources:
             AllowedHeaders:
             - "*"
 
+plugins:
+  - serverless-domain-manager
+
 custom:
   cognitoUserPoolArn: ${ssm:/rf/globals/cognito_user_pool_arn}
+  certificateArn: ${ssm:/rf/globals/certificate_arn}
+  customDomain:
+    domainName: ${file(./config.${self:provider.stage}.yml):domainName}
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    certificateName: "*.recipefinder.io"
+    certificateArn: ${self:custom.certificateArn}
+    endpointType: regional
+    hostedZoneId: recipefinder.io.
